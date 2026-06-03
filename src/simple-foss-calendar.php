@@ -526,19 +526,346 @@ function sfc_sortable_event_columns( $columns ) {
 add_filter( 'manage_edit-sfc_event_sortable_columns', 'sfc_sortable_event_columns' );
 
 /**
- * Applies sorting by event start date in admin.
+ * Applies active/archive filtering and event start date sorting in admin.
  *
  * @param WP_Query $query Query instance.
  */
 function sfc_admin_event_ordering( $query ) {
-	if ( ! is_admin() || ! $query->is_main_query() || 'sfc_start' !== $query->get( 'orderby' ) ) {
+	if ( ! is_admin() || ! $query->is_main_query() || 'sfc_event' !== $query->get( 'post_type' ) ) {
 		return;
 	}
 
-	$query->set( 'meta_key', '_sfc_start_date' );
-	$query->set( 'orderby', 'meta_value' );
+	$post_status = $query->get( 'post_status' );
+
+	if ( in_array( $post_status, array( 'trash', 'auto-draft' ), true ) ) {
+		return;
+	}
+
+	$time_filter = sfc_get_admin_event_time_filter();
+
+	if ( 'archive' === $time_filter ) {
+		$query->set( 'meta_query', sfc_get_admin_event_archive_meta_query() );
+	} else {
+		$query->set( 'meta_query', sfc_get_admin_event_active_meta_query() );
+	}
+
+	if ( 'sfc_start' === $query->get( 'orderby' ) || ! $query->get( 'orderby' ) ) {
+		$query->set( 'meta_key', '_sfc_start_date' );
+		$query->set( 'orderby', 'meta_value' );
+		$query->set( 'order', 'archive' === $time_filter ? 'DESC' : 'ASC' );
+	}
 }
 add_action( 'pre_get_posts', 'sfc_admin_event_ordering' );
+
+/**
+ * Returns the selected admin event time filter.
+ *
+ * @return string
+ */
+function sfc_get_admin_event_time_filter() {
+	$filter = isset( $_GET['sfc_event_time'] ) ? sanitize_key( wp_unslash( $_GET['sfc_event_time'] ) ) : '';
+
+	return 'archive' === $filter ? 'archive' : 'active';
+}
+
+/**
+ * Adds active/archive views to the admin event table.
+ *
+ * @param array $views Existing view links.
+ * @return array
+ */
+function sfc_admin_event_views( $views ) {
+	$current = sfc_get_admin_event_time_filter();
+
+	$active_url  = remove_query_arg( 'sfc_event_time', admin_url( 'edit.php?post_type=sfc_event' ) );
+	$archive_url = add_query_arg( 'sfc_event_time', 'archive', admin_url( 'edit.php?post_type=sfc_event' ) );
+
+	$views['all'] = sprintf(
+		'<a href="%1$s"%2$s>%3$s <span class="count">(%4$d)</span></a>',
+		esc_url( $active_url ),
+		'active' === $current ? ' class="current" aria-current="page"' : '',
+		esc_html__( 'Active', 'simple-foss-calendar' ),
+		absint( sfc_count_admin_events_by_time_filter( 'active' ) )
+	);
+
+	$views['sfc_event_archive'] = sprintf(
+		'<a href="%1$s"%2$s>%3$s <span class="count">(%4$d)</span></a>',
+		esc_url( $archive_url ),
+		'archive' === $current ? ' class="current" aria-current="page"' : '',
+		esc_html__( 'Archive', 'simple-foss-calendar' ),
+		absint( sfc_count_admin_events_by_time_filter( 'archive' ) )
+	);
+
+	return $views;
+}
+add_filter( 'views_edit-sfc_event', 'sfc_admin_event_views' );
+
+/**
+ * Counts events for an admin time filter.
+ *
+ * @param string $time_filter Time filter.
+ * @return int
+ */
+function sfc_count_admin_events_by_time_filter( $time_filter ) {
+	$query = new WP_Query(
+		array(
+			'post_type'      => 'sfc_event',
+			'post_status'    => array( 'publish', 'future', 'draft', 'pending', 'private' ),
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+			'no_found_rows'  => false,
+			'meta_query'     => 'archive' === $time_filter ? sfc_get_admin_event_archive_meta_query() : sfc_get_admin_event_active_meta_query(),
+		)
+	);
+
+	return (int) $query->found_posts;
+}
+
+/**
+ * Returns meta query for active events in the admin list.
+ *
+ * @return array
+ */
+function sfc_get_admin_event_active_meta_query() {
+	$today = current_time( 'Y-m-d' );
+
+	return array(
+		'relation' => 'AND',
+		array(
+			'key'     => '_sfc_start_date',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'relation' => 'OR',
+			array(
+				'relation' => 'AND',
+				sfc_get_admin_event_non_recurring_meta_query(),
+				sfc_get_admin_event_active_date_meta_query( $today ),
+			),
+			array(
+				'relation' => 'AND',
+				sfc_get_admin_event_recurring_meta_query(),
+				sfc_get_admin_event_active_recurrence_meta_query( $today ),
+			),
+		),
+	);
+}
+
+/**
+ * Returns meta query for archived events in the admin list.
+ *
+ * @return array
+ */
+function sfc_get_admin_event_archive_meta_query() {
+	$today = current_time( 'Y-m-d' );
+
+	return array(
+		'relation' => 'AND',
+		array(
+			'key'     => '_sfc_start_date',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'relation' => 'OR',
+			array(
+				'relation' => 'AND',
+				sfc_get_admin_event_non_recurring_meta_query(),
+				sfc_get_admin_event_past_date_meta_query( $today ),
+			),
+			array(
+				'relation' => 'AND',
+				sfc_get_admin_event_recurring_meta_query(),
+				sfc_get_admin_event_past_recurrence_meta_query( $today ),
+			),
+		),
+	);
+}
+
+/**
+ * Returns meta query for non-recurring events.
+ *
+ * @return array
+ */
+function sfc_get_admin_event_non_recurring_meta_query() {
+	return array(
+		'relation' => 'OR',
+		array(
+			'key'     => '_sfc_recurrence',
+			'compare' => 'NOT EXISTS',
+		),
+		array(
+			'key'     => '_sfc_recurrence',
+			'value'   => '',
+			'compare' => '=',
+		),
+		array(
+			'key'     => '_sfc_recurrence',
+			'value'   => 'none',
+			'compare' => '=',
+		),
+	);
+}
+
+/**
+ * Returns meta query for recurring events.
+ *
+ * @return array
+ */
+function sfc_get_admin_event_recurring_meta_query() {
+	return array(
+		'key'     => '_sfc_recurrence',
+		'value'   => array( 'daily', 'weekly', 'monthly', 'yearly' ),
+		'compare' => 'IN',
+	);
+}
+
+/**
+ * Returns meta query for active non-recurring event dates.
+ *
+ * @param string $today Current WordPress date.
+ * @return array
+ */
+function sfc_get_admin_event_active_date_meta_query( $today ) {
+	return array(
+		'relation' => 'OR',
+		array(
+			'relation' => 'AND',
+			array(
+				'key'     => '_sfc_end_date',
+				'value'   => '',
+				'compare' => '!=',
+			),
+			array(
+				'key'     => '_sfc_end_date',
+				'value'   => $today,
+				'compare' => '>=',
+				'type'    => 'DATE',
+			),
+		),
+		array(
+			'relation' => 'AND',
+			array(
+				'key'     => '_sfc_end_date',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => '_sfc_start_date',
+				'value'   => $today,
+				'compare' => '>=',
+				'type'    => 'DATE',
+			),
+		),
+		array(
+			'relation' => 'AND',
+			array(
+				'key'     => '_sfc_end_date',
+				'value'   => '',
+				'compare' => '=',
+			),
+			array(
+				'key'     => '_sfc_start_date',
+				'value'   => $today,
+				'compare' => '>=',
+				'type'    => 'DATE',
+			),
+		),
+	);
+}
+
+/**
+ * Returns meta query for archived non-recurring event dates.
+ *
+ * @param string $today Current WordPress date.
+ * @return array
+ */
+function sfc_get_admin_event_past_date_meta_query( $today ) {
+	return array(
+		'relation' => 'OR',
+		array(
+			'relation' => 'AND',
+			array(
+				'key'     => '_sfc_end_date',
+				'value'   => '',
+				'compare' => '!=',
+			),
+			array(
+				'key'     => '_sfc_end_date',
+				'value'   => $today,
+				'compare' => '<',
+				'type'    => 'DATE',
+			),
+		),
+		array(
+			'relation' => 'AND',
+			array(
+				'key'     => '_sfc_end_date',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => '_sfc_start_date',
+				'value'   => $today,
+				'compare' => '<',
+				'type'    => 'DATE',
+			),
+		),
+		array(
+			'relation' => 'AND',
+			array(
+				'key'     => '_sfc_end_date',
+				'value'   => '',
+				'compare' => '=',
+			),
+			array(
+				'key'     => '_sfc_start_date',
+				'value'   => $today,
+				'compare' => '<',
+				'type'    => 'DATE',
+			),
+		),
+	);
+}
+
+/**
+ * Returns meta query for active recurring event dates.
+ *
+ * @param string $today Current WordPress date.
+ * @return array
+ */
+function sfc_get_admin_event_active_recurrence_meta_query( $today ) {
+	return array(
+		'relation' => 'OR',
+		array(
+			'key'     => '_sfc_recurrence_until',
+			'compare' => 'NOT EXISTS',
+		),
+		array(
+			'key'     => '_sfc_recurrence_until',
+			'value'   => '',
+			'compare' => '=',
+		),
+		array(
+			'key'     => '_sfc_recurrence_until',
+			'value'   => $today,
+			'compare' => '>=',
+			'type'    => 'DATE',
+		),
+	);
+}
+
+/**
+ * Returns meta query for archived recurring event dates.
+ *
+ * @param string $today Current WordPress date.
+ * @return array
+ */
+function sfc_get_admin_event_past_recurrence_meta_query( $today ) {
+	return array(
+		'key'     => '_sfc_recurrence_until',
+		'value'   => $today,
+		'compare' => '<',
+		'type'    => 'DATE',
+	);
+}
 
 /**
  * Adds a duplicate action to event row actions.

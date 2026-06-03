@@ -271,6 +271,12 @@ msgstr ""
 msgid "Quick examples"
 msgstr ""
 
+msgid "Active"
+msgstr ""
+
+msgid "Archive"
+msgstr ""
+
 #. translators: %s: event start time.
 msgid "%s o'clock"
 msgstr ""

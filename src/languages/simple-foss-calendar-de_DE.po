@@ -276,6 +276,12 @@ msgstr "Legende anzeigen"
 msgid "Quick examples"
 msgstr "Schnellbeispiele"
 
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Archive"
+msgstr "Archiv"
+
 #. translators: %s: event start time.
 msgid "%s o'clock"
 msgstr "%s Uhr"

@@ -84,6 +84,8 @@ No. Events are stored as WordPress content and rendered with local plugin assets
 
 = 0.1.26 =
 
+Add an admin archive view for past events while keeping events active until the day after their end date.
+
 Show date ranges for multi-day events in upcoming lists and add a cleanup-safe ZIP build script.
 
 = 0.1.25 =
