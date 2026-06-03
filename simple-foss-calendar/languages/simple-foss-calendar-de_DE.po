@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple FOSS Calendar 0.1.19\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-03 17:10+0200\n"
+"PO-Revision-Date: 2026-06-03 17:10+0200\n"
+"Last-Translator: Simple FOSS Calendar Contributors\n"
+"Language-Team: German\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Codex\n"
+"X-Domain: simple-foss-calendar\n"
+
+msgctxt "post type general name"
+msgid "Events"
+msgstr "Veranstaltungen"
+
+msgctxt "post type singular name"
+msgid "Event"
+msgstr "Veranstaltung"
+
+msgctxt "admin menu"
+msgid "Events"
+msgstr "Veranstaltungen"
+
+msgctxt "add new on admin bar"
+msgid "Event"
+msgstr "Veranstaltung"
+
+msgctxt "event"
+msgid "Add New"
+msgstr "Neu hinzufügen"
+
+msgid "Add New Event"
+msgstr "Neue Veranstaltung hinzufügen"
+
+msgid "New Event"
+msgstr "Neue Veranstaltung"
+
+msgid "Edit Event"
+msgstr "Veranstaltung bearbeiten"
+
+msgid "View Event"
+msgstr "Veranstaltung anzeigen"
+
+msgid "All Events"
+msgstr "Alle Veranstaltungen"
+
+msgid "Search Events"
+msgstr "Veranstaltungen suchen"
+
+msgid "No events found."
+msgstr "Keine Veranstaltungen gefunden."
+
+msgid "No events found in Trash."
+msgstr "Keine Veranstaltungen im Papierkorb gefunden."
+
+msgid "Event image"
+msgstr "Veranstaltungsbild"
+
+msgid "Set event image"
+msgstr "Veranstaltungsbild festlegen"
+
+msgid "Remove event image"
+msgstr "Veranstaltungsbild entfernen"
+
+msgctxt "taxonomy general name"
+msgid "Event Topics"
+msgstr "Veranstaltungsthemen"
+
+msgctxt "taxonomy singular name"
+msgid "Event Topic"
+msgstr "Veranstaltungsthema"
+
+msgid "Search Event Topics"
+msgstr "Veranstaltungsthemen suchen"
+
+msgid "All Event Topics"
+msgstr "Alle Veranstaltungsthemen"
+
+msgid "Edit Event Topic"
+msgstr "Veranstaltungsthema bearbeiten"
+
+msgid "Update Event Topic"
+msgstr "Veranstaltungsthema aktualisieren"
+
+msgid "Add New Event Topic"
+msgstr "Neues Veranstaltungsthema hinzufügen"
+
+msgid "New Event Topic Name"
+msgstr "Name des neuen Veranstaltungsthemas"
+
+msgid "Event Topics"
+msgstr "Veranstaltungsthemen"
+
+msgid "Event Details"
+msgstr "Veranstaltungsdetails"
+
+msgid "Event date, time and place"
+msgstr "Veranstaltungsdatum, Uhrzeit und Ort"
+
+msgid "Start date"
+msgstr "Startdatum"
+
+msgid "Start time"
+msgstr "Startzeit"
+
+msgid "End date"
+msgstr "Enddatum"
+
+msgid "End time"
+msgstr "Endzeit"
+
+msgid "Location"
+msgstr "Ort"
+
+msgid "Date and time"
+msgstr "Datum und Uhrzeit"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Time"
+msgstr "Uhrzeit"
+
+msgid "External URL"
+msgstr "Externe URL"
+
+msgid "Calendar color"
+msgstr "Kalenderfarbe"
+
+msgid "Repeat"
+msgstr "Wiederholen"
+
+msgid "Does not repeat"
+msgstr "Wiederholt sich nicht"
+
+#. translators: 1: Recurrence frequency, 2: Interval number.
+msgid "%1$s, every %2$d intervals"
+msgstr "%1$s, alle %2$d Intervalle"
+
+#. translators: %s: End date.
+msgid "until %s"
+msgstr "bis %s"
+
+msgid "Daily"
+msgstr "Täglich"
+
+msgid "Weekly"
+msgstr "Wöchentlich"
+
+msgid "Monthly"
+msgstr "Monatlich"
+
+msgid "Yearly"
+msgstr "Jährlich"
+
+msgid "Repeat every"
+msgstr "Wiederholen alle"
+
+msgid "Repeat until"
+msgstr "Wiederholen bis"
+
+msgid "All-day event"
+msgstr "Ganztägige Veranstaltung"
+
+msgid "Starts"
+msgstr "Beginn"
+
+msgid "Duplicate this event"
+msgstr "Diese Veranstaltung duplizieren"
+
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+msgid "You are not allowed to duplicate this event."
+msgstr "Du darfst diese Veranstaltung nicht duplizieren."
+
+msgid "Event could not be found."
+msgstr "Die Veranstaltung konnte nicht gefunden werden."
+
+#. translators: %s: Original event title.
+msgid "%s copy"
+msgstr "%s Kopie"
+
+msgid "Next month"
+msgstr "Nächster Monat"
+
+msgid "Previous month"
+msgstr "Vorheriger Monat"
+
+msgid "Today"
+msgstr "Heute"
+
+msgid "Loading events..."
+msgstr "Veranstaltungen werden geladen..."
+
+msgid "No events this month."
+msgstr "Keine Veranstaltungen in diesem Monat."
+
+msgid "View event"
+msgstr "Veranstaltung anzeigen"
+
+msgid "Upcoming Events"
+msgstr "Kommende Veranstaltungen"
+
+msgid "Shows a styled list of upcoming events."
+msgstr "Zeigt eine gestaltete Liste kommender Veranstaltungen."
+
+msgid "Currently there are no upcoming events."
+msgstr "Derzeit gibt es keine kommenden Veranstaltungen."
+
+msgid "Event list settings"
+msgstr "Einstellungen der Veranstaltungsliste"
+
+msgid "Event category slug"
+msgstr "Veranstaltungskategorie-Slug"
+
+msgid "Leave empty to show all event topics."
+msgstr "Leer lassen, um alle Veranstaltungsthemen anzuzeigen."
+
+msgid "Maximum events"
+msgstr "Maximale Anzahl Veranstaltungen"
+
+msgid "Show place"
+msgstr "Ort anzeigen"
+
+msgid "Show time"
+msgstr "Uhrzeit anzeigen"
+
+msgid "Style"
+msgstr "Darstellung"
+
+msgid "List"
+msgstr "Liste"
+
+msgid "Minimal list"
+msgstr "Minimale Liste"
+
+msgid "Calendar"
+msgstr "Kalender"
+
+msgid "Shortcode Generator"
+msgstr "Shortcode-Generator"
+
+msgid "Use these shortcodes in pages, posts, widgets, or template areas to show your events."
+msgstr "Nutze diese Shortcodes in Seiten, Beiträgen, Widgets oder Template-Bereichen, um deine Veranstaltungen anzuzeigen."
+
+msgid "Upcoming events list"
+msgstr "Liste kommender Veranstaltungen"
+
+msgid "All event topics"
+msgstr "Alle Veranstaltungsthemen"
+
+msgid "Generated shortcode"
+msgstr "Generierter Shortcode"
+
+msgid "Copy shortcode"
+msgstr "Shortcode kopieren"
+
+msgid "Full month calendar"
+msgstr "Vollständiger Monatskalender"
+
+msgid "Show legend"
+msgstr "Legende anzeigen"
+
+msgid "Quick examples"
+msgstr "Schnellbeispiele"
+
+#. translators: %s: event start time.
+msgid "%s o'clock"
+msgstr "%s Uhr"

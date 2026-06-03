@@ -1,0 +1,270 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple FOSS Calendar 0.1.19\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-03 17:10+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Codex\n"
+"X-Domain: simple-foss-calendar\n"
+
+msgctxt "post type general name"
+msgid "Events"
+msgstr ""
+
+msgctxt "post type singular name"
+msgid "Event"
+msgstr ""
+
+msgctxt "admin menu"
+msgid "Events"
+msgstr ""
+
+msgctxt "add new on admin bar"
+msgid "Event"
+msgstr ""
+
+msgctxt "event"
+msgid "Add New"
+msgstr ""
+
+msgid "Add New Event"
+msgstr ""
+
+msgid "New Event"
+msgstr ""
+
+msgid "Edit Event"
+msgstr ""
+
+msgid "View Event"
+msgstr ""
+
+msgid "All Events"
+msgstr ""
+
+msgid "Search Events"
+msgstr ""
+
+msgid "No events found."
+msgstr ""
+
+msgid "No events found in Trash."
+msgstr ""
+
+msgid "Event image"
+msgstr ""
+
+msgid "Set event image"
+msgstr ""
+
+msgid "Remove event image"
+msgstr ""
+
+msgctxt "taxonomy general name"
+msgid "Event Topics"
+msgstr ""
+
+msgctxt "taxonomy singular name"
+msgid "Event Topic"
+msgstr ""
+
+msgid "Search Event Topics"
+msgstr ""
+
+msgid "All Event Topics"
+msgstr ""
+
+msgid "Edit Event Topic"
+msgstr ""
+
+msgid "Update Event Topic"
+msgstr ""
+
+msgid "Add New Event Topic"
+msgstr ""
+
+msgid "New Event Topic Name"
+msgstr ""
+
+msgid "Event Topics"
+msgstr ""
+
+msgid "Event Details"
+msgstr ""
+
+msgid "Event date, time and place"
+msgstr ""
+
+msgid "Start date"
+msgstr ""
+
+msgid "Start time"
+msgstr ""
+
+msgid "End date"
+msgstr ""
+
+msgid "End time"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid "Date and time"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Time"
+msgstr ""
+
+msgid "External URL"
+msgstr ""
+
+msgid "Calendar color"
+msgstr ""
+
+msgid "Repeat"
+msgstr ""
+
+msgid "Does not repeat"
+msgstr ""
+
+#. translators: 1: Recurrence frequency, 2: Interval number.
+msgid "%1$s, every %2$d intervals"
+msgstr ""
+
+#. translators: %s: End date.
+msgid "until %s"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
+
+msgid "Repeat every"
+msgstr ""
+
+msgid "Repeat until"
+msgstr ""
+
+msgid "All-day event"
+msgstr ""
+
+msgid "Starts"
+msgstr ""
+
+msgid "Duplicate this event"
+msgstr ""
+
+msgid "Duplicate"
+msgstr ""
+
+msgid "You are not allowed to duplicate this event."
+msgstr ""
+
+msgid "Event could not be found."
+msgstr ""
+
+#. translators: %s: Original event title.
+msgid "%s copy"
+msgstr ""
+
+msgid "Next month"
+msgstr ""
+
+msgid "Previous month"
+msgstr ""
+
+msgid "Today"
+msgstr ""
+
+msgid "Loading events..."
+msgstr ""
+
+msgid "No events this month."
+msgstr ""
+
+msgid "View event"
+msgstr ""
+
+msgid "Upcoming Events"
+msgstr ""
+
+msgid "Shows a styled list of upcoming events."
+msgstr ""
+
+msgid "Currently there are no upcoming events."
+msgstr ""
+
+msgid "Event list settings"
+msgstr ""
+
+msgid "Event category slug"
+msgstr ""
+
+msgid "Leave empty to show all event topics."
+msgstr ""
+
+msgid "Maximum events"
+msgstr ""
+
+msgid "Show place"
+msgstr ""
+
+msgid "Show time"
+msgstr ""
+
+msgid "Style"
+msgstr ""
+
+msgid "List"
+msgstr ""
+
+msgid "Minimal list"
+msgstr ""
+
+msgid "Calendar"
+msgstr ""
+
+msgid "Shortcode Generator"
+msgstr ""
+
+msgid "Use these shortcodes in pages, posts, widgets, or template areas to show your events."
+msgstr ""
+
+msgid "Upcoming events list"
+msgstr ""
+
+msgid "All event topics"
+msgstr ""
+
+msgid "Generated shortcode"
+msgstr ""
+
+msgid "Copy shortcode"
+msgstr ""
+
+msgid "Full month calendar"
+msgstr ""
+
+msgid "Show legend"
+msgstr ""
+
+msgid "Quick examples"
+msgstr ""
+
+#. translators: %s: event start time.
+msgid "%s o'clock"
+msgstr ""
