@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple FOSS Calendar 0.1.24\n"
+"Project-Id-Version: Simple FOSS Calendar 0.1.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-03 17:10+0200\n"
 "MIME-Version: 1.0\n"

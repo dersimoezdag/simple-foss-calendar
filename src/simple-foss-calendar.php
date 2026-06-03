@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple FOSS Calendar
  * Description: Adds an accessible events calendar and upcoming-events list to any WordPress site.
- * Version: 0.1.24
+ * Version: 0.1.26
  * Author: Simple FOSS Calendar Contributors
  * License: GPL-2.0-or-later
  * Text Domain: simple-foss-calendar
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SFC_VERSION', '0.1.24' );
+define( 'SFC_VERSION', '0.1.26' );
 define( 'SFC_PLUGIN_FILE', __FILE__ );
 define( 'SFC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SFC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -1373,7 +1373,7 @@ function sfc_render_upcoming_events( $args = array() ) {
 						)
 					);
 					?>
-					<li class="sfc-upcoming__item" style="--sfc-event-color: <?php echo esc_attr( $event['color'] ); ?>;">
+					<li class="sfc-upcoming__item<?php echo ! empty( $event['multiDay'] ) ? ' sfc-upcoming__item--multi-day' : ''; ?>" style="--sfc-event-color: <?php echo esc_attr( $event['color'] ); ?>;">
 						<div class="sfc-upcoming__content">
 							<span class="sfc-upcoming__date" aria-hidden="true">
 								<span class="sfc-upcoming__day"><?php echo esc_html( $event['dayLabel'] ); ?></span>
@@ -1831,8 +1831,9 @@ function sfc_normalize_event( $post, $occurrence_start = '', $occurrence_end = '
 		'color'     => sanitize_hex_color( $color ) ? $color : '#ffffff',
 		'topics'    => is_array( $terms ) ? wp_list_pluck( $terms, 'name' ) : array(),
 		'recurring' => 'none' !== sfc_sanitize_recurrence( get_post_meta( $post->ID, '_sfc_recurrence', true ) ),
+		'multiDay'  => ! empty( $end_date ) && $end_date !== $start_date,
 		'dateLabel' => sfc_format_event_datetime_value( $start_date, $start_time, $end_date, $end_time, $all_day ),
-		'shortDateLabel' => sfc_format_event_short_date_value( $start_date ),
+		'shortDateLabel' => sfc_format_event_short_date_value( $start_date, $end_date ),
 		'timeLabel' => sfc_format_event_time_value( $start_date, $start_time, $end_date, $end_time, $all_day ),
 		'compactTimeLabel' => sfc_format_event_compact_time_value( $start_date, $start_time, $end_date, $end_time, $all_day ),
 		'dayLabel'  => sfc_format_event_day_value( $start_date ),
@@ -1957,22 +1958,30 @@ function sfc_format_event_date_range_value( $start_date, $end_date = '' ) {
  */
 function sfc_format_event_short_date( $post_id ) {
 	$start_date = get_post_meta( $post_id, '_sfc_start_date', true );
+	$end_date   = get_post_meta( $post_id, '_sfc_end_date', true );
 
-	return sfc_format_event_short_date_value( $start_date );
+	return sfc_format_event_short_date_value( $start_date, $end_date );
 }
 
 /**
- * Formats event date value as a compact numeric label.
+ * Formats event date value as a compact numeric label or range.
  *
  * @param string $start_date Start date.
+ * @param string $end_date   End date.
  * @return string
  */
-function sfc_format_event_short_date_value( $start_date ) {
+function sfc_format_event_short_date_value( $start_date, $end_date = '' ) {
 	if ( empty( $start_date ) ) {
 		return '';
 	}
 
-	return wp_date( 'd.m.Y', strtotime( $start_date ) );
+	$label = wp_date( 'd.m.Y', strtotime( $start_date ) );
+
+	if ( ! empty( $end_date ) && $end_date !== $start_date ) {
+		$label .= ' - ' . wp_date( 'd.m.Y', strtotime( $end_date ) );
+	}
+
+	return $label;
 }
 
 /**

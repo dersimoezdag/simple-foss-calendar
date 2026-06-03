@@ -4,7 +4,7 @@ Tags: calendar, events, event calendar, shortcode
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.1.24
+Stable tag: 0.1.26
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,14 @@ No. The plugin is an original implementation that takes broad product inspiratio
 No. Events are stored as WordPress content and rendered with local plugin assets.
 
 == Changelog ==
+
+= 0.1.26 =
+
+Show date ranges for multi-day events in upcoming lists and add a cleanup-safe ZIP build script.
+
+= 0.1.25 =
+
+Refine the standard upcoming-events list with outline cards, inherited theme text color, and no duplicated inline date.
 
 = 0.1.24 =
 
