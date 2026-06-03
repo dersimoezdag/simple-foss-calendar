@@ -248,6 +248,24 @@
   margin: 0;
 }
 
+.single-sfc_event .post-navigation,
+.single-sfc_event .navigation.post-navigation {
+  display: none;
+}
+
+.sfc-single-next-events {
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  margin-top: 2rem;
+  padding-top: 1.35rem;
+}
+
+.sfc-single-next-events__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 0.7rem;
+}
+
 .sfc-single-more-events {
   border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
   margin-top: 2rem;

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple FOSS Calendar 0.1.23\n"
+"Project-Id-Version: Simple FOSS Calendar 0.1.24\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-03 17:10+0200\n"
 "PO-Revision-Date: 2026-06-03 17:10+0200\n"
@@ -212,6 +212,9 @@ msgstr "Shows a styled list of upcoming events."
 
 msgid "Currently there are no upcoming events."
 msgstr "Currently there are no upcoming events."
+
+msgid "Next Events"
+msgstr "Next Events"
 
 msgid "More Events"
 msgstr "More Events"

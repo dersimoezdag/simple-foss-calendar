@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple FOSS Calendar
  * Description: Adds an accessible events calendar and upcoming-events list to any WordPress site.
- * Version: 0.1.23
+ * Version: 0.1.24
  * Author: Simple FOSS Calendar Contributors
  * License: GPL-2.0-or-later
  * Text Domain: simple-foss-calendar
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SFC_VERSION', '0.1.23' );
+define( 'SFC_VERSION', '0.1.24' );
 define( 'SFC_PLUGIN_FILE', __FILE__ );
 define( 'SFC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SFC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -1156,15 +1156,45 @@ function sfc_add_single_event_details_to_content( $content ) {
 
 	$rendering = true;
 	$details = sfc_render_single_event_details( get_the_ID() );
+	$next    = sfc_render_single_next_events();
 	$rendering = false;
 
-	if ( empty( $details ) ) {
+	if ( empty( $details ) && empty( $next ) ) {
 		return $content;
 	}
 
-	return $details . $content;
+	return $details . $content . $next;
 }
 add_filter( 'the_content', 'sfc_add_single_event_details_to_content', 8 );
+
+/**
+ * Renders a compact upcoming-events section below single event content.
+ *
+ * @return string
+ */
+function sfc_render_single_next_events() {
+	$list = sfc_render_upcoming_events(
+		array(
+			'max_events' => 5,
+			'show_place' => true,
+			'show_time'  => true,
+			'style'      => 'minimal-list',
+		)
+	);
+
+	if ( empty( $list ) ) {
+		return '';
+	}
+
+	ob_start();
+	?>
+	<section class="sfc-single-next-events" aria-labelledby="sfc-single-next-events-title">
+		<h2 id="sfc-single-next-events-title" class="sfc-single-next-events__title"><?php esc_html_e( 'Next Events', 'simple-foss-calendar' ); ?></h2>
+		<?php echo $list; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	</section>
+	<?php
+	return ob_get_clean();
+}
 
 /**
  * Renders the detail panel for a single event page.

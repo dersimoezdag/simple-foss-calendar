@@ -4,7 +4,7 @@ Tags: calendar, events, event calendar, shortcode
 Requires at least: 6.0
 Tested up to: 6.5
 Requires PHP: 7.4
-Stable tag: 0.1.23
+Stable tag: 0.1.24
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,10 @@ No. The plugin is an original implementation that takes broad product inspiratio
 No. Events are stored as WordPress content and rendered with local plugin assets.
 
 == Changelog ==
+
+= 0.1.24 =
+
+Show a styled "Next Events" list below single event content and hide generic post navigation.
 
 = 0.1.23 =
 
