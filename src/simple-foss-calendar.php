@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Simple FOSS Calendar
  * Description: Adds an accessible events calendar and upcoming-events list to any WordPress site.
- * Version: 0.1.21
+ * Version: 0.1.22
  * Author: Simple FOSS Calendar Contributors
  * License: GPL-2.0-or-later
  * Text Domain: simple-foss-calendar
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'SFC_VERSION', '0.1.21' );
+define( 'SFC_VERSION', '0.1.22' );
 define( 'SFC_PLUGIN_FILE', __FILE__ );
 define( 'SFC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SFC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -1144,12 +1144,20 @@ add_shortcode( 'simple_foss_events', 'sfc_upcoming_events_shortcode' );
  * @return string
  */
 function sfc_add_single_event_details_to_content( $content ) {
+	static $rendering = false;
+
 	if ( ! is_singular( 'sfc_event' ) || ! in_the_loop() || ! is_main_query() ) {
 		return $content;
 	}
 
+	if ( $rendering ) {
+		return $content;
+	}
+
+	$rendering = true;
 	$details = sfc_render_single_event_details( get_the_ID() );
 	$more    = sfc_render_single_more_events( get_the_ID() );
+	$rendering = false;
 
 	if ( empty( $details ) && empty( $more ) ) {
 		return $content;
@@ -1865,7 +1873,7 @@ function sfc_normalize_event( $post, $occurrence_start = '', $occurrence_end = '
 		'url'       => ! empty( $external ) ? $external : get_permalink( $post ),
 		'permalink' => get_permalink( $post ),
 		'location'  => $location,
-		'excerpt'   => get_the_excerpt( $post ),
+		'excerpt'   => sfc_get_plain_event_excerpt( $post ),
 		'color'     => sanitize_hex_color( $color ) ? $color : '#ffffff',
 		'topics'    => is_array( $terms ) ? wp_list_pluck( $terms, 'name' ) : array(),
 		'recurring' => 'none' !== sfc_sanitize_recurrence( get_post_meta( $post->ID, '_sfc_recurrence', true ) ),
@@ -1876,6 +1884,24 @@ function sfc_normalize_event( $post, $occurrence_start = '', $occurrence_end = '
 		'dayLabel'  => sfc_format_event_day_value( $start_date ),
 		'monthLabel' => sfc_format_event_month_value( $start_date ),
 	);
+}
+
+/**
+ * Returns a plain excerpt without invoking content/excerpt filters.
+ *
+ * @param WP_Post $post Event post.
+ * @return string
+ */
+function sfc_get_plain_event_excerpt( $post ) {
+	if ( ! empty( $post->post_excerpt ) ) {
+		return wp_strip_all_tags( $post->post_excerpt );
+	}
+
+	if ( empty( $post->post_content ) ) {
+		return '';
+	}
+
+	return wp_trim_words( wp_strip_all_tags( strip_shortcodes( $post->post_content ) ), 28 );
 }
 
 /**
