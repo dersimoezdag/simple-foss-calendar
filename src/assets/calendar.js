@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const settings = window.sfcCalendarSettings || {};
+  const settings = window.openagendaCalendarSettings || {};
   const labels = settings.labels || {};
   const locale = settings.locale || document.documentElement.lang || 'en-US';
   const configuredFirstWeekday = Number(settings.firstWeekday);
@@ -107,7 +107,7 @@
   }
 
   function renderWeekdays(calendar) {
-    const weekdays = calendar.querySelector('[data-sfc-weekdays]');
+    const weekdays = calendar.querySelector('[data-openagenda-weekdays]');
     weekdays.innerHTML = '';
 
     for (let index = 0; index < 7; index += 1) {
@@ -115,14 +115,14 @@
       const sample = new Date(2024, 0, 7 + day);
       const label = new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(sample);
       const item = document.createElement('div');
-      item.className = 'sfc-calendar__weekday';
+      item.className = 'openagenda-calendar__weekday';
       item.textContent = label;
       weekdays.appendChild(item);
     }
   }
 
   function renderLegend(calendar, events) {
-    const legend = calendar.querySelector('[data-sfc-legend]');
+    const legend = calendar.querySelector('[data-openagenda-legend]');
     const shouldShow = calendar.dataset.showLegend === 'true';
     const topics = new Map();
 
@@ -139,8 +139,8 @@
 
     topics.forEach((color, topic) => {
       const item = document.createElement('span');
-      item.className = 'sfc-calendar__legend-item';
-      item.style.setProperty('--sfc-event-color', color);
+      item.className = 'openagenda-calendar__legend-item';
+      item.style.setProperty('--openagenda-event-color', color);
       item.textContent = topic;
       legend.appendChild(item);
     });
@@ -164,27 +164,27 @@
 
   function renderEvents(day, events) {
     const list = document.createElement('ul');
-    list.className = 'sfc-calendar__events';
+    list.className = 'openagenda-calendar__events';
 
     events.slice(0, 4).forEach((event) => {
       const item = document.createElement('li');
-      item.className = 'sfc-calendar__event';
-      item.style.setProperty('--sfc-event-color', event.color || '#ffffff');
+      item.className = 'openagenda-calendar__event';
+      item.style.setProperty('--openagenda-event-color', event.color || '#ffffff');
 
       const link = document.createElement('a');
-      link.className = 'sfc-calendar__event-link';
+      link.className = 'openagenda-calendar__event-link';
       link.href = event.url || event.permalink || '#';
 
       const time = eventTimeLabel(event);
       if (time) {
         const timeNode = document.createElement('span');
-        timeNode.className = 'sfc-calendar__event-time';
+        timeNode.className = 'openagenda-calendar__event-time';
         timeNode.textContent = time;
         link.appendChild(timeNode);
       }
 
       const title = document.createElement('span');
-      title.className = 'sfc-calendar__event-title';
+      title.className = 'openagenda-calendar__event-title';
       title.textContent = event.title;
       link.appendChild(title);
 
@@ -194,7 +194,7 @@
 
     if (events.length > 4) {
       const more = document.createElement('li');
-      more.className = 'sfc-calendar__more';
+      more.className = 'openagenda-calendar__more';
       more.textContent = `+${events.length - 4}`;
       list.appendChild(more);
     }
@@ -203,9 +203,9 @@
   }
 
   function renderCalendar(calendar, monthDate, events) {
-    const title = calendar.querySelector('[data-sfc-title]');
-    const grid = calendar.querySelector('[data-sfc-grid]');
-    const status = calendar.querySelector('[data-sfc-status]');
+    const title = calendar.querySelector('[data-openagenda-title]');
+    const grid = calendar.querySelector('[data-openagenda-grid]');
+    const status = calendar.querySelector('[data-openagenda-status]');
     const todayKey = toDateKey(new Date());
     const activeMonth = monthDate.getMonth();
     const grouped = groupEventsByDay(events);
@@ -223,22 +223,22 @@
       const key = toDateKey(date);
       const dayEvents = grouped[key] || [];
       const day = document.createElement('div');
-      day.className = 'sfc-calendar__day';
+      day.className = 'openagenda-calendar__day';
 
       if (date.getMonth() !== activeMonth) {
-        day.classList.add('sfc-calendar__day--muted');
+        day.classList.add('openagenda-calendar__day--muted');
       }
 
       if (!dayEvents.length) {
-        day.classList.add('sfc-calendar__day--empty');
+        day.classList.add('openagenda-calendar__day--empty');
       }
 
       if (key === todayKey) {
-        day.classList.add('sfc-calendar__day--today');
+        day.classList.add('openagenda-calendar__day--today');
       }
 
       const heading = document.createElement('div');
-      heading.className = 'sfc-calendar__day-heading';
+      heading.className = 'openagenda-calendar__day-heading';
 
       const number = document.createElement('time');
       number.dateTime = key;
@@ -258,10 +258,10 @@
   }
 
   async function loadEvents(calendar, monthDate) {
-    const status = calendar.querySelector('[data-sfc-status]');
+    const status = calendar.querySelector('[data-openagenda-status]');
     status.hidden = false;
     status.textContent = labels.loading || 'Loading events...';
-    calendar.classList.add('sfc-calendar--loading');
+    calendar.classList.add('openagenda-calendar--loading');
 
     try {
       const response = await fetch(buildUrl(calendar, monthDate), {
@@ -281,7 +281,7 @@
       status.hidden = false;
       status.textContent = error.message;
     } finally {
-      calendar.classList.remove('sfc-calendar--loading');
+      calendar.classList.remove('openagenda-calendar--loading');
     }
   }
 
@@ -292,7 +292,7 @@
     loadEvents(calendar, currentMonth);
 
     calendar.addEventListener('click', (event) => {
-      const button = event.target.closest('[data-sfc-action]');
+      const button = event.target.closest('[data-openagenda-action]');
       if (!button) {
         return;
       }
@@ -315,7 +315,7 @@
   }
 
   function init() {
-    document.querySelectorAll('.sfc-calendar').forEach(initCalendar);
+    document.querySelectorAll('.openagenda-calendar').forEach(initCalendar);
   }
 
   if (document.readyState === 'loading') {

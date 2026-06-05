@@ -15,15 +15,15 @@
   let lastSavedPayload = '';
 
   const recurrenceOptions = [
-    { label: __('Does not repeat', 'simple-foss-calendar'), value: 'none' },
-    { label: __('Daily', 'simple-foss-calendar'), value: 'daily' },
-    { label: __('Weekly', 'simple-foss-calendar'), value: 'weekly' },
-    { label: __('Monthly', 'simple-foss-calendar'), value: 'monthly' },
-    { label: __('Yearly', 'simple-foss-calendar'), value: 'yearly' },
+    { label: __('Does not repeat', 'openagenda-events-calendar'), value: 'none' },
+    { label: __('Daily', 'openagenda-events-calendar'), value: 'daily' },
+    { label: __('Weekly', 'openagenda-events-calendar'), value: 'weekly' },
+    { label: __('Monthly', 'openagenda-events-calendar'), value: 'monthly' },
+    { label: __('Yearly', 'openagenda-events-calendar'), value: 'yearly' },
   ];
 
   function EventDetailsPanel({ meta, setMeta }) {
-    if (select('core/editor').getCurrentPostType() !== 'sfc_event') {
+    if (select('core/editor').getCurrentPostType() !== 'openagenda_event') {
       return null;
     }
 
@@ -33,81 +33,81 @@
     return el(
       PluginDocumentSettingPanel,
       {
-        name: 'sfc-event-details',
-        title: __('Event date, time and place', 'simple-foss-calendar'),
-        className: 'sfc-event-details-panel',
+        name: 'openagenda-event-details',
+        title: __('Event date, time and place', 'openagenda-events-calendar'),
+        className: 'openagenda-event-details-panel',
       },
       el(TextControl, {
-        label: __('Start date', 'simple-foss-calendar'),
+        label: __('Start date', 'openagenda-events-calendar'),
         type: 'date',
-        value: meta._sfc_start_date || '',
-        onChange: (value) => updateMeta('_sfc_start_date', value),
+        value: meta._openagenda_start_date || '',
+        onChange: (value) => updateMeta('_openagenda_start_date', value),
       }),
       el(TextControl, {
-        label: __('Start time', 'simple-foss-calendar'),
+        label: __('Start time', 'openagenda-events-calendar'),
         type: 'time',
-        value: meta._sfc_start_time || '',
-        onChange: (value) => updateMeta('_sfc_start_time', value),
+        value: meta._openagenda_start_time || '',
+        onChange: (value) => updateMeta('_openagenda_start_time', value),
       }),
       el(TextControl, {
-        label: __('End date', 'simple-foss-calendar'),
+        label: __('End date', 'openagenda-events-calendar'),
         type: 'date',
-        value: meta._sfc_end_date || '',
-        onChange: (value) => updateMeta('_sfc_end_date', value),
+        value: meta._openagenda_end_date || '',
+        onChange: (value) => updateMeta('_openagenda_end_date', value),
       }),
       el(TextControl, {
-        label: __('End time', 'simple-foss-calendar'),
+        label: __('End time', 'openagenda-events-calendar'),
         type: 'time',
-        value: meta._sfc_end_time || '',
-        onChange: (value) => updateMeta('_sfc_end_time', value),
+        value: meta._openagenda_end_time || '',
+        onChange: (value) => updateMeta('_openagenda_end_time', value),
       }),
       el(ToggleControl, {
-        label: __('All-day event', 'simple-foss-calendar'),
-        checked: meta._sfc_all_day === '1',
-        onChange: (checked) => updateMeta('_sfc_all_day', checked ? '1' : '0'),
+        label: __('All-day event', 'openagenda-events-calendar'),
+        checked: meta._openagenda_all_day === '1',
+        onChange: (checked) => updateMeta('_openagenda_all_day', checked ? '1' : '0'),
       }),
       el(TextControl, {
-        label: __('Location', 'simple-foss-calendar'),
-        value: meta._sfc_location || '',
-        onChange: (value) => updateMeta('_sfc_location', value),
+        label: __('Location', 'openagenda-events-calendar'),
+        value: meta._openagenda_location || '',
+        onChange: (value) => updateMeta('_openagenda_location', value),
       }),
       el(TextControl, {
-        label: __('External URL', 'simple-foss-calendar'),
+        label: __('External URL', 'openagenda-events-calendar'),
         type: 'url',
-        value: meta._sfc_external_url || '',
-        onChange: (value) => updateMeta('_sfc_external_url', value),
+        value: meta._openagenda_external_url || '',
+        onChange: (value) => updateMeta('_openagenda_external_url', value),
       }),
       el(TextControl, {
-        label: __('Calendar color', 'simple-foss-calendar'),
+        label: __('Calendar color', 'openagenda-events-calendar'),
         type: 'color',
-        value: meta._sfc_color || '#ffffff',
-        onChange: (value) => updateMeta('_sfc_color', value),
+        value: meta._openagenda_color || '#ffffff',
+        onChange: (value) => updateMeta('_openagenda_color', value),
       }),
       el(
         PanelBody,
         {
-          title: __('Repeat', 'simple-foss-calendar'),
+          title: __('Repeat', 'openagenda-events-calendar'),
           initialOpen: false,
         },
         el(SelectControl, {
-          label: __('Repeat', 'simple-foss-calendar'),
-          value: meta._sfc_recurrence || 'none',
+          label: __('Repeat', 'openagenda-events-calendar'),
+          value: meta._openagenda_recurrence || 'none',
           options: recurrenceOptions,
-          onChange: (value) => updateMeta('_sfc_recurrence', value),
+          onChange: (value) => updateMeta('_openagenda_recurrence', value),
         }),
         el(TextControl, {
-          label: __('Repeat every', 'simple-foss-calendar'),
+          label: __('Repeat every', 'openagenda-events-calendar'),
           type: 'number',
           min: 1,
           max: 99,
-          value: meta._sfc_recurrence_interval || 1,
-          onChange: (value) => updateMeta('_sfc_recurrence_interval', Number(value) || 1),
+          value: meta._openagenda_recurrence_interval || 1,
+          onChange: (value) => updateMeta('_openagenda_recurrence_interval', Number(value) || 1),
         }),
         el(TextControl, {
-          label: __('Repeat until', 'simple-foss-calendar'),
+          label: __('Repeat until', 'openagenda-events-calendar'),
           type: 'date',
-          value: meta._sfc_recurrence_until || '',
-          onChange: (value) => updateMeta('_sfc_recurrence_until', value),
+          value: meta._openagenda_recurrence_until || '',
+          onChange: (value) => updateMeta('_openagenda_recurrence_until', value),
         })
       )
     );
@@ -125,13 +125,13 @@
     'withEventMeta'
   );
 
-  registerPlugin('sfc-event-details', {
+  registerPlugin('openagenda-event-details', {
     render: withEventMeta(EventDetailsPanel),
   });
 
   subscribe(() => {
     const editor = select('core/editor');
-    if (!editor || editor.getCurrentPostType() !== 'sfc_event') {
+    if (!editor || editor.getCurrentPostType() !== 'openagenda_event') {
       return;
     }
 
@@ -145,7 +145,7 @@
       if (postId && payload !== lastSavedPayload) {
         lastSavedPayload = payload;
         apiFetch({
-          path: `/simple-foss-calendar/v1/event-meta/${postId}`,
+          path: `/openagenda-events-calendar/v1/event-meta/${postId}`,
           method: 'POST',
           data: {
             meta: latestMeta || {},

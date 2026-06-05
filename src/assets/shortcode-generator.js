@@ -15,30 +15,30 @@
   }
 
   function updateEventsShortcode() {
-    const output = document.querySelector('[data-sfc-shortcode-output="events"]');
+    const output = document.querySelector('[data-openagenda-shortcode-output="events"]');
     if (!output) {
       return;
     }
 
-    const category = document.querySelector('[data-sfc-shortcode-field="category"]')?.value || '';
-    const maxEvents = document.querySelector('[data-sfc-shortcode-field="max-events"]')?.value || '6';
-    const style = document.querySelector('[data-sfc-shortcode-field="style"]')?.value || 'list';
-    const showPlace = checkboxValue('[data-sfc-shortcode-field="show-place"]');
-    const showTime = checkboxValue('[data-sfc-shortcode-field="show-time"]');
+    const category = document.querySelector('[data-openagenda-shortcode-field="category"]')?.value || '';
+    const maxEvents = document.querySelector('[data-openagenda-shortcode-field="max-events"]')?.value || '6';
+    const style = document.querySelector('[data-openagenda-shortcode-field="style"]')?.value || 'list';
+    const showPlace = checkboxValue('[data-openagenda-shortcode-field="show-place"]');
+    const showTime = checkboxValue('[data-openagenda-shortcode-field="show-time"]');
 
-    output.value = `[simple_foss_events${attr('category', category)}${attr('max-events', maxEvents)}${attr('show-place', showPlace)}${attr('show-time', showTime)}${attr('style', style)}]`;
+    output.value = `[openagenda_events${attr('category', category)}${attr('max-events', maxEvents)}${attr('show-place', showPlace)}${attr('show-time', showTime)}${attr('style', style)}]`;
   }
 
   function updateCalendarShortcode() {
-    const output = document.querySelector('[data-sfc-shortcode-output="calendar"]');
+    const output = document.querySelector('[data-openagenda-shortcode-output="calendar"]');
     if (!output) {
       return;
     }
 
-    const topic = document.querySelector('[data-sfc-calendar-field="topic"]')?.value || '';
-    const showLegend = checkboxValue('[data-sfc-calendar-field="show_legend"]');
+    const topic = document.querySelector('[data-openagenda-calendar-field="topic"]')?.value || '';
+    const showLegend = checkboxValue('[data-openagenda-calendar-field="show_legend"]');
 
-    output.value = `[simple_foss_calendar${attr('topic', topic)}${attr('show_legend', showLegend)}]`;
+    output.value = `[openagenda_events_calendar${attr('topic', topic)}${attr('show_legend', showLegend)}]`;
   }
 
   async function copyShortcode(id) {
@@ -57,18 +57,18 @@
   }
 
   function init() {
-    document.querySelectorAll('[data-sfc-shortcode-field]').forEach((field) => {
+    document.querySelectorAll('[data-openagenda-shortcode-field]').forEach((field) => {
       field.addEventListener('input', updateEventsShortcode);
       field.addEventListener('change', updateEventsShortcode);
     });
 
-    document.querySelectorAll('[data-sfc-calendar-field]').forEach((field) => {
+    document.querySelectorAll('[data-openagenda-calendar-field]').forEach((field) => {
       field.addEventListener('input', updateCalendarShortcode);
       field.addEventListener('change', updateCalendarShortcode);
     });
 
-    document.querySelectorAll('[data-sfc-copy-shortcode]').forEach((button) => {
-      button.addEventListener('click', () => copyShortcode(button.dataset.sfcCopyShortcode));
+    document.querySelectorAll('[data-openagenda-copy-shortcode]').forEach((button) => {
+      button.addEventListener('click', () => copyShortcode(button.dataset.openagendaCopyShortcode));
     });
 
     updateEventsShortcode();

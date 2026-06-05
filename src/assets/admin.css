@@ -1,0 +1,14 @@
+.openagenda-admin-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 8px 16px;
+}
+
+.openagenda-admin-grid label {
+	display: block;
+	margin-bottom: 6px;
+}
+
+.openagenda-admin-checkbox {
+	align-self: end;
+}

@@ -32,17 +32,17 @@
       return;
     }
 
-    const data = row.querySelector('.sfc-quick-edit-data');
+    const data = row.querySelector('.openagenda-quick-edit-data');
 
     if (!data) {
       return;
     }
 
-    setInput(editRow, 'sfc_start_date', data.dataset.startDate);
-    setInput(editRow, 'sfc_start_time', data.dataset.startTime);
-    setInput(editRow, 'sfc_end_date', data.dataset.endDate);
-    setInput(editRow, 'sfc_end_time', data.dataset.endTime);
-    setInput(editRow, 'sfc_location', data.dataset.location);
-    setCheckbox(editRow, 'sfc_all_day', data.dataset.allDay === '1');
+    setInput(editRow, 'openagenda_start_date', data.dataset.startDate);
+    setInput(editRow, 'openagenda_start_time', data.dataset.startTime);
+    setInput(editRow, 'openagenda_end_date', data.dataset.endDate);
+    setInput(editRow, 'openagenda_end_time', data.dataset.endTime);
+    setInput(editRow, 'openagenda_location', data.dataset.location);
+    setCheckbox(editRow, 'openagenda_all_day', data.dataset.allDay === '1');
   };
 })(window, document);

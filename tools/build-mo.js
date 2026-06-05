@@ -87,7 +87,7 @@ function writeMo(entries, outputPath) {
 
 const candidates = [
   path.join(__dirname, '..', 'src', 'languages'),
-  path.join(__dirname, '..', 'simple-foss-calendar', 'languages'),
+  path.join(__dirname, '..', 'openagenda-events-calendar', 'languages'),
 ];
 const languagesDir = candidates.find((candidate) => fs.existsSync(candidate));
 

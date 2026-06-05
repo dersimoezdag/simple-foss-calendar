@@ -1,10 +1,10 @@
-=== Simple FOSS Calendar ===
-Contributors: simple-foss-calendar-contributors
+=== OpenAgenda Events Calendar ===
+Contributors: dersim
 Tags: calendar, events, event calendar, shortcode
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.28
+Stable tag: 0.1.31
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ Adds an accessible event calendar and upcoming-events list to WordPress.
 
 == Description ==
 
-Simple FOSS Calendar provides an Events post type, event topics, date/time metadata, a responsive month calendar, an upcoming-events list, and a small read-only REST endpoint for frontend integrations.
+OpenAgenda Events Calendar provides an Events post type, event topics, date/time metadata, a responsive month calendar, an upcoming-events list, and a small read-only REST endpoint for frontend integrations.
 
-Repository: https://github.com/dersimoezdag/simple-foss-calendar
+Repository: https://github.com/dersimoezdag/openagenda-events-calendar
 
 The plugin is intentionally dependency-free on the frontend. It uses vanilla JavaScript and CSS, so it can be dropped into a broad range of WordPress themes.
 
@@ -30,19 +30,19 @@ Event date, time, location, URL, color, and recurrence can be edited in the Even
 2. Create events under Events in the WordPress admin.
 3. Add one of these shortcodes to a page or post:
 
-`[simple_foss_calendar]`
+`[openagenda_events_calendar]`
 
-`[simple_foss_events limit="6"]`
+`[openagenda_events limit="6"]`
 
 Filter by an event topic slug:
 
-`[simple_foss_calendar topic="meetup"]`
+`[openagenda_events_calendar topic="meetup"]`
 
-`[simple_foss_events topic="meetup" limit="4"]`
+`[openagenda_events topic="meetup" limit="4"]`
 
 The upcoming-events list also supports display options:
 
-`[simple_foss_events category="meetup" max-events="5" show-place="true" show-time="true" style="list"]`
+`[openagenda_events category="meetup" max-events="5" show-place="true" show-time="true" style="list"]`
 
 Available upcoming-events options:
 
@@ -60,7 +60,7 @@ You can also insert the "Upcoming Events" block in the block editor. The block e
 
 The calendar data is also available at:
 
-`/wp-json/simple-foss-calendar/v1/events`
+`/wp-json/openagenda-events-calendar/v1/events`
 
 Optional REST query parameters:
 
@@ -82,7 +82,11 @@ No. Events are stored as WordPress content and rendered with local plugin assets
 
 == Changelog ==
 
-= 0.1.28 =
+= 0.1.31 =
+
+Rename the plugin to OpenAgenda Events Calendar, update text domain, public shortcodes and prefixes, and enqueue admin styles from a static CSS file.
+
+= 0.1.29 =
 
 Use explicit sanitized event meta request fields to satisfy Plugin Check nonce and input validation scans.
 
